@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Ultra Access</string>
+
+    <string-array name="errores">
+        <item>@string/error_0</item>
+        <item>@string/error_1</item>
+        <item>@string/error_2</item>
+    </string-array>
+    <string name="error_0">No se pudo establecer la comunicación bluetooth</string>
+    <string name="error_1">No se obutvo repuesta, por favor intentalo de nuevo</string>
+    <string name="error_2">No se obtuvo una respuesta del sensor</string>
+
+    <string name="dispositivos_bluetooth">Dispositivos Bluetooth</string>
+    <string name="enviando_informacion">Enviando información</string>
+    <string name="escanenado">Escaneando</string>
+    <string name="conectando">Conectando</string>
+    <string name="sincronizando">Sincronizando...</string>
+    <string name="obteniendo_unidades_coectada">Obteniendo unidades emparejadas</string>
+    <string name="enviando_comando">Enviando comando ...</string>
+    <string name="validando_sensores">Validando sensor...</string>
+    <string name="estableciendo_conexion">Estableciendo conexión</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="usuario">Usuario</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="conectar_puerta">Conectar a puerta</string>
+    <string name="abrir_puerta">Abrir puerta</string>
+    <string name="abrir">Abrir</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="solicitar_permiso">Solicitar permiso</string>
+    <string name="puerta_x">Puerta: %1$s</string>
+    <string name="usuario_x">Usuario: %1$s</string>
+    <string name="obtener_permisos">Obtener permisos</string>
+    <string name="Puerta">Puertas</string>
+    <string name="sin_permisos">Lo sentimos, pero no tienes los permisos para abrir esa puerta</string>
+    <string name="cerrar_sesion">Cerrar Sesion</string>
+
+</resources>
