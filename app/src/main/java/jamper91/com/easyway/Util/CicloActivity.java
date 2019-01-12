@@ -9,13 +9,18 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.mukesh.permissions.AppPermissions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import jamper91.com.easyway.R;
 
 /**
  * Created by @jvillafane on 05/10/2016.
@@ -79,8 +84,6 @@ public abstract class CicloActivity extends AppCompatActivity {
         super.onStart();
         getPermissions();
     }
-    //endregion
-
 
     public void add_on_click(int elemento, View.OnClickListener clickListener)
     {
@@ -90,11 +93,32 @@ public abstract class CicloActivity extends AppCompatActivity {
             admin.toast("No se puede generar evento onClick para el elemento"+elemento);
         }
     }
+
+    public SlidingMenu init_menu(final Activity a, final int layout)
+    {
+
+        final SlidingMenu menu  = new SlidingMenu(this);
+        menu.setMode(SlidingMenu.RIGHT);
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+        menu.setShadowWidth(0);
+        //menu.setShadowDrawable(R.drawable.sombra_menu);
+        //menu.setBehindOffsetRes(R.dimen.dimen_50);
+        menu.setFadeDegree(0);
+        menu.attachToActivity(a, SlidingMenu.SLIDING_CONTENT);
+        menu.setMenu(layout);
+
+        return menu;
+
+
+
+    }
+    //endregion
+
+    //region Animacion
     public void addElemento(Animacion animacion)
     {
         elementos.put(animacion.getElemento().getId()+"", animacion);
     }
-    //region Animacion
     public Animacion getElemento(int key)
     {
         return elementos.get(key+"");

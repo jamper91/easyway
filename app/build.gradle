@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -29,8 +29,9 @@ dependencies {
     compile 'com.daimajia.easing:library:2.0@aar'
     compile 'com.daimajia.androidanimations:library:2.2@aar'
     //endregion
-    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.android.volley:volley:1.1.0'
     //region Permisos
     compile 'com.mukesh:permissions:1.0.4'
     //endregion
+    compile project(':SlidingMenu')
 }
