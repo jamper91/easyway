@@ -13,8 +13,11 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
@@ -42,6 +45,7 @@ public class Administrador {
     private static Administrador instancia = null;
     private static Activity actividad;
     private static Hashtable<String, Typeface> fuentes = null;
+    private static ImageLoader imageLoader=null;
 
     //region Constructores
     private Administrador(Context c, Activity actividad) {
@@ -263,6 +267,41 @@ public class Administrador {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.actividad.startActivity(a);
+    }
+
+    public boolean loadImageFromInternet(String url, NetworkImageView img, int ErroImage, int DefaultImage){
+        if(isOnline()){
+            try {
+                if(imageLoader==null)
+                    imageLoader = AppController.getInstance().getImageLoader();
+            } catch (Exception e) {
+                return false;
+            }
+
+            //Descargo la foto
+            if( Patterns.WEB_URL.matcher(url).matches()){
+                try {
+                    img.setImageUrl(url, imageLoader);
+                    img.setErrorImageResId(ErroImage);
+                    img.setDefaultImageResId(DefaultImage);
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
+            }else{
+                try {
+                    img.setDefaultImageResId(DefaultImage);
+                } catch (Exception e) {
+                }
+                return false;
+            }
+        }else{
+            try {
+                img.setDefaultImageResId(DefaultImage);
+            } catch (Exception e) {
+            }
+            return false;
+        }
     }
     //endregion
 

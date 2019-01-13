@@ -1,5 +1,11 @@
 apply plugin: 'com.android.library'
 
+ext {
+    PUBLISH_GROUP_ID = 'com.jamper91.android'
+    PUBLISH_ARTIFACT_ID = 'easyway'
+    PUBLISH_VERSION = '1.0'
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "24.0.3"
