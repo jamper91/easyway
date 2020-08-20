@@ -7,11 +7,11 @@ ext {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "24.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 16
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -24,20 +24,20 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.google.code.gson:gson:2.7'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.google.code.gson:gson:2.7'
     //region Dependiencias para las animaciones
-    compile 'com.android.support:support-compat:25.1.1'
-    compile 'com.daimajia.easing:library:2.0@aar'
-    compile 'com.daimajia.androidanimations:library:2.2@aar'
+    implementation 'com.android.support:support-compat:26'
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.2@aar'
     //endregion
-    compile 'com.android.volley:volley:1.1.0'
+    implementation 'com.android.volley:volley:1.1.0'
     //region Permisos
-    compile 'com.mukesh:permissions:1.0.4'
+    implementation 'com.mukesh:permissions:1.0.4'
     //endregion
-    compile project(':SlidingMenu')
+    implementation project(':SlidingMenu')
 }

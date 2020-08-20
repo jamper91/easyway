@@ -37,7 +37,7 @@ import jamper91.com.easyway.R;
 public class CallWebServiceJson {
     private Activity activity;
     private String url;
-    private HashMap<String, String> campos;
+    private HashMap<String, Object> campos;
     private int tipo;
     private HashMap<String, String> headers;
     private ResponseListener listener;
@@ -51,7 +51,7 @@ public class CallWebServiceJson {
     private Drawable drawable=null;
     private Context context=null;
 
-    public CallWebServiceJson(Activity activity, String url, HashMap<String, String> campos, HashMap<String, String> header, int tipo, ResponseListener listener, Administrador admin) {
+    public CallWebServiceJson(Activity activity, String url, HashMap<String, Object> campos, HashMap<String, String> header, int tipo, ResponseListener listener, Administrador admin) {
         this.activity = activity;
         this.url = url;
         this.campos = campos;
