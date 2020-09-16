@@ -10,5 +10,5 @@ import org.json.JSONObject;
 public interface ResponseListener {
     public void onResponse(String response);
     public void onResponse(JSONObject response);
-    public void onErrorResponse(String error);
+    public void onErrorResponse(String s, VolleyError volleyError);
 }

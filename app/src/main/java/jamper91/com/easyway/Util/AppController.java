@@ -1,6 +1,8 @@
 package jamper91.com.easyway.Util;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -10,6 +12,9 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 import java.io.File;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.util.Map;
 
 
 public class AppController extends Application {
@@ -19,12 +24,18 @@ public class AppController extends Application {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
+    private static final String SET_COOKIE_KEY = "Set-Cookie";
+    private static final String COOKIE_KEY = "Cookie";
+    private static final String SESSION_COOKIE = "sessionid";
+    private SharedPreferences _preferences;
+
     private static AppController mInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
 
@@ -94,5 +105,43 @@ public class AppController extends Application {
         }
 
         return dir.delete();
+    }
+
+    /**
+     * Checks the response headers for session cookie and saves it
+     * if it finds it.
+     * @param headers Response Headers.
+     */
+    public final void checkSessionCookie(Map<String, String> headers) {
+        if (headers.containsKey(SET_COOKIE_KEY)) {
+            String cookie = headers.get(SET_COOKIE_KEY);
+            if (cookie.length() > 0) {
+                String[] splitCookie = cookie.split(";");
+                String[] splitSessionId = splitCookie[0].split("=");
+                cookie = splitSessionId[1];
+                SharedPreferences.Editor prefEditor = _preferences.edit();
+                prefEditor.putString(SESSION_COOKIE, cookie);
+                prefEditor.commit();
+            }
+        }
+    }
+
+    /**
+     * Adds session cookie to headers if exists.
+     * @param headers
+     */
+    public final void addSessionCookie(Map<String, String> headers) {
+        String sessionId = _preferences.getString(SESSION_COOKIE, "");
+        if (sessionId.length() > 0) {
+            StringBuilder builder = new StringBuilder();
+            builder.append(SESSION_COOKIE);
+            builder.append("=");
+            builder.append(sessionId);
+            if (headers.containsKey(COOKIE_KEY)) {
+                builder.append("; ");
+                builder.append(headers.get(COOKIE_KEY));
+            }
+            headers.put(COOKIE_KEY, builder.toString());
+        }
     }
 }

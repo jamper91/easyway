@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +45,7 @@ public class CallWebServiceJson {
     private Administrador admin;
     private RequestQueue requestQueue;
     private ProgressDialog progress;
+    private boolean shouldUseChache = true;
 
     AlertDialog.Builder builder=null;
     Dialog alertDialog=null;
@@ -59,6 +61,18 @@ public class CallWebServiceJson {
         this.tipo = tipo;
         this.listener = listener;
         this.admin  = admin;
+
+    }
+
+    public CallWebServiceJson(Activity activity, String url, HashMap<String, Object> campos, HashMap<String, String> header, int tipo, ResponseListener listener, Administrador admin, boolean shouldUseChache) {
+        this.activity = activity;
+        this.url = url;
+        this.campos = campos;
+        this.headers = header;
+        this.tipo = tipo;
+        this.listener = listener;
+        this.admin  = admin;
+        this.shouldUseChache  = shouldUseChache;
 
     }
 
@@ -111,7 +125,7 @@ public class CallWebServiceJson {
             alertDialog.show();
         }
         JSONObject body = new JSONObject(campos);
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(
+        JsonObjectRequest jsonRequest = new MetaRequest(
                 this.tipo,
                 this.url,
                 body,
@@ -140,7 +154,7 @@ public class CallWebServiceJson {
                             volleyError = error;
                         }
 
-                        listener.onErrorResponse(volleyError.getLocalizedMessage());
+                        listener.onErrorResponse(volleyError.getLocalizedMessage(), volleyError);
 
 
 
@@ -150,9 +164,20 @@ public class CallWebServiceJson {
         ){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> auxHeaders = super.getHeaders();
+
+                if (auxHeaders == null
+                        || auxHeaders.equals(Collections.emptyMap())) {
+                    auxHeaders = new HashMap<String, String>();
+                }
+
+                AppController.getInstance().addSessionCookie(auxHeaders);
+                headers.putAll(auxHeaders);
                 return headers;
             }
         };
+
+        jsonRequest.setShouldCache(shouldUseChache);
 
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(jsonRequest);

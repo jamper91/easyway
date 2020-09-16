@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/EasyWay.iml" filepath="$PROJECT_DIR$/.idea/modules/EasyWay.iml" group="EasyWay" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SlidingMenu/EasyWay-SlidingMenu.iml" filepath="$PROJECT_DIR$/.idea/modules/SlidingMenu/EasyWay-SlidingMenu.iml" group="EasyWay/SlidingMenu" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/EasyWay-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/EasyWay-app.iml" group="EasyWay/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Projects-EasyWay.iml" filepath="$PROJECT_DIR$/.idea/modules/Projects-EasyWay.iml" group="EasyWay" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SlidingMenu/SlidingMenu.iml" filepath="$PROJECT_DIR$/.idea/modules/SlidingMenu/SlidingMenu.iml" group="EasyWay/SlidingMenu" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="EasyWay/app" />
     </modules>

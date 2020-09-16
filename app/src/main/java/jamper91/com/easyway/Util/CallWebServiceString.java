@@ -112,7 +112,7 @@ public class CallWebServiceString {
                         } else if(alertDialog!=null){
                             alertDialog.dismiss();
                         }
-                        listener.onErrorResponse(error.getMessage());
+                        listener.onErrorResponse(error.getMessage(), null);
 
 
                     }
