@@ -6,23 +6,22 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -34,7 +33,7 @@ import jamper91.com.easyway.R;
 /**
  * Created by @jvillafane on 11/07/2016.
  */
-public class CallWebServiceJson {
+public class CallWebServiceJsonArray {
     private Activity activity;
     private String url;
     private HashMap<String, Object> campos;
@@ -51,7 +50,7 @@ public class CallWebServiceJson {
     private Drawable drawable=null;
     private Context context=null;
 
-    public CallWebServiceJson(Activity activity, String url, HashMap<String, Object> campos, HashMap<String, String> header, int tipo, ResponseListener listener, Administrador admin) {
+    public CallWebServiceJsonArray(Activity activity, String url, HashMap<String, Object> campos, HashMap<String, String> header, int tipo, ResponseListener listener, Administrador admin) {
         this.activity = activity;
         this.url = url;
         this.campos = campos;
@@ -89,17 +88,13 @@ public class CallWebServiceJson {
         this.drawable = drawable;
     }
 
-    public void execute()
-    {
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void execute() throws JSONException {
         init_request_queue();
         if(!message.isEmpty()){
             progress = ProgressDialog.show(activity, null,
                     message, true);
         }else if(drawable!=null){
-//            LayoutInflater inflater = activity.getLayoutInflater();
-//            builder = new AlertDialog.Builder(activity);
-//            builder.setView(inflater.inflate(R.layout.dialog, null));
-//            builder.setCancelable(false);
             alertDialog=new Dialog(activity);
             alertDialog.setContentView(R.layout.dialog);
             alertDialog.setCancelable(false);
@@ -110,14 +105,14 @@ public class CallWebServiceJson {
 
             alertDialog.show();
         }
-        JSONObject body = new JSONObject(campos);
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(
+        JSONArray body = new JSONArray(campos);
+        JsonArrayRequest jsonRequest = new JsonArrayRequest(
                 this.tipo,
                 this.url,
                 body,
-                new Response.Listener<JSONObject>() {
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         if (progress!=null) {
                             progress.dismiss();
                         } else if(alertDialog!=null){

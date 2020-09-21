@@ -160,6 +160,16 @@ public class Administrador {
         }
         return id;
     }
+
+    public int getStringResourceIdByName(String aString) {
+        int id = -1;
+        try {
+            id = context.getResources().getIdentifier(aString, "string", context.getApplicationContext().getPackageName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
     public Drawable getDrawable(int id)
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

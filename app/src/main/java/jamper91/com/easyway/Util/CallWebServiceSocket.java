@@ -107,7 +107,7 @@ public class CallWebServiceSocket extends AsyncTask<Void, Void, String> {
         {
             responseListener.onResponse(response);
         }else {
-            responseListener.onErrorResponse(null);
+            responseListener.onErrorResponse(null, null);
         }
 
 
