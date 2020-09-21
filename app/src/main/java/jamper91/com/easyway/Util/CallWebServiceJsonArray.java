@@ -43,6 +43,7 @@ public class CallWebServiceJsonArray {
     private Administrador admin;
     private RequestQueue requestQueue;
     private ProgressDialog progress;
+    private boolean shouldUseChache = true;
 
     AlertDialog.Builder builder=null;
     Dialog alertDialog=null;
@@ -58,6 +59,18 @@ public class CallWebServiceJsonArray {
         this.tipo = tipo;
         this.listener = listener;
         this.admin  = admin;
+
+    }
+
+    public CallWebServiceJsonArray(Activity activity, String url, HashMap<String, Object> campos, HashMap<String, String> header, int tipo, ResponseListener listener, Administrador admin, boolean shouldUseChache) {
+        this.activity = activity;
+        this.url = url;
+        this.campos = campos;
+        this.headers = header;
+        this.tipo = tipo;
+        this.listener = listener;
+        this.admin  = admin;
+        this.shouldUseChache  = shouldUseChache;
 
     }
 
@@ -105,7 +118,11 @@ public class CallWebServiceJsonArray {
 
             alertDialog.show();
         }
-        JSONArray body = new JSONArray(campos);
+        JSONArray body = null;
+        if(!campos.isEmpty()){
+            JSONObject jsonObject = new JSONObject(campos);
+            body = new JSONArray(jsonObject.toString());
+        }
         JsonArrayRequest jsonRequest = new JsonArrayRequest(
                 this.tipo,
                 this.url,
@@ -149,6 +166,8 @@ public class CallWebServiceJsonArray {
                 return headers;
             }
         };
+
+        jsonRequest.setShouldCache(shouldUseChache);
 
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(jsonRequest);
